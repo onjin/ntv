@@ -21,6 +21,9 @@ from ntv.shortcuts import search
     }
 )
 def channels(channel_name=None, date=None, channel_id=None):
+    if channel_name:
+        channel_name = channel_name.decode('utf-8')
+
     if date is None or date == 'today':
         date = datetime.today()
     else:
@@ -58,6 +61,10 @@ def movies(channel_name=None, date=None, channel_id=None, movie_title='',
     """
     List movies
     """
+    if channel_name:
+        channel_name = channel_name.decode('utf-8')
+    if movie_title:
+        movie_title = movie_title.decode('utf-8')
 
     if date is None or date == 'today':
         date = datetime.today()

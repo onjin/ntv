@@ -19,7 +19,7 @@ history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 setup(
     name='ntv',
-    version='0.1.0',
+    version='0.2.0',
     description='n.tv api',
     long_description=readme + '\n\n' + history,
     author='Marek Wywiał',
