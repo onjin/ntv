@@ -34,7 +34,7 @@ def channels(channel_name=None, date=None, channel_id=None):
         channel_name=channel_name, channel_id=channel_id
     )
 
-    for index, channel in result.iteritems():
+    for index, channel in result.items():
         puts(colored.green("[%d] %s" % (index, channel['name'])))
 
 
@@ -76,7 +76,7 @@ def movies(channel_name=None, date=None, channel_id=None, movie_title='',
         movie_title=movie_title
     )
 
-    for index, channel in result.iteritems():
+    for index, channel in result.items():
         puts(colored.green("[%d] %s" % (index, channel['name'])))
 
         for movie in channel['movies']:

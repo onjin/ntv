@@ -3,6 +3,11 @@
 History
 -------
 
+0.3.0 (2013-10-11)
+++++++++++++++++++
+
+* Changed dict.itermitems() to items() for compatibility with python 3.x
+
 0.2.0 (2013-10-11)
 ++++++++++++++++++
 

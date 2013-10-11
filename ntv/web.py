@@ -71,13 +71,13 @@ def filtered(data, **kwargs):
 
     if channel_name:
         result = {}
-        for index, channel in data.iteritems():
+        for index, channel in data.items():
             if channel_name.lower() in channel['name'].lower():
                 result.update({index: channel})
 
     if movie_title:
         result = {}
-        for index, channel in data.iteritems():
+        for index, channel in data.items():
             for movie in channel['movies']:
                 if movie_title.lower() in movie['title'].lower():
                     if not index in result.keys():
