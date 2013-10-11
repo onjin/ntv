@@ -4,3 +4,5 @@
 __author__ = 'Marek Wywiał'
 __email__ = 'onjinx@gmail.com'
 __version__ = '0.1.0'
+
+from .shortcuts import search

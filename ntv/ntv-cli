@@ -1,0 +1,85 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from datetime import datetime
+
+import baker
+from clint.textui import puts, indent, colored
+from ntv.shortcuts import search
+
+
+@baker.command(
+    shortopts={
+        'channel_name': 'n',
+        'date': 'd',
+        'channel_id': 'c',
+    },
+    params={
+        'channel_name': 'Part of channel name',
+        'date': 'Movies for day',
+        'channel_id': 'Channel id',
+    }
+)
+def channels(channel_name=None, date=None, channel_id=None):
+    if date is None or date == 'today':
+        date = datetime.today()
+    else:
+        date = datetime.strptime(date, '%Y-%m-%d')
+
+    result = search(
+        datetime.today(),
+        channel_name=channel_name, channel_id=channel_id
+    )
+
+    for index, channel in result.iteritems():
+        puts(colored.green("[%d] %s" % (index, channel['name'])))
+
+
+@baker.command(
+    shortopts={
+        'channel_name': 'n',
+        'movie_title': 't',
+        'date': 'd',
+        'channel_id': 'c',
+        'start_time': 's',
+        'end_time': 'e',
+    },
+    params={
+        'channel_name': 'Part of channel name',
+        'movie_title': 'Part of movie title',
+        'date': 'Movies for day',
+        'channel_id': 'Channel id',
+        'start_time': 'From time',
+        'end_time': 'Till time',
+    }
+)
+def movies(channel_name=None, date=None, channel_id=None, movie_title='',
+           start_time=None, end_time=None):
+    """
+    List movies
+    """
+
+    if date is None or date == 'today':
+        date = datetime.today()
+    else:
+        date = datetime.strptime(date, '%Y-%m-%d')
+    result = search(
+        date,
+        channel_name=channel_name, channel_id=channel_id,
+        movie_title=movie_title
+    )
+
+    for index, channel in result.iteritems():
+        puts(colored.green("[%d] %s" % (index, channel['name'])))
+
+        for movie in channel['movies']:
+            with indent(4):
+                puts(colored.white(
+                    '%s - %s  %s' % (
+                        movie['start_time'],
+                        movie['end_time'],
+                        movie['title'],
+                    )))
+
+if __name__ == '__main__':
+    baker.run()

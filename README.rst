@@ -15,9 +15,9 @@ ntv
 n.tv api
 
 * Free software: BSD license
-* Documentation: http://ntv.rtfd.org.
 
 Features
 --------
 
-* TODO
+* python wrapper over tv program from n.pl site
+* ntv-cli command utility to list and search tv program

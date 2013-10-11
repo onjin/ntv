@@ -33,6 +33,8 @@ setup(
     install_requires=[
         'requests',
         'simplejson',
+        'clint',
+        'baker',
     ],
     license="BSD",
     zip_safe=False,
@@ -49,4 +51,5 @@ setup(
         'Programming Language :: Python :: 3.3',
     ],
     test_suite='tests',
+    scripts=['ntv/ntv-cli'],
 )
