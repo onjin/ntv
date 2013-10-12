@@ -21,6 +21,10 @@ from ntv.shortcuts import search
     }
 )
 def channels(channel_name=None, date=None, channel_id=None):
+    """
+    List and find channels
+    """
+
     if channel_name:
         channel_name = channel_name.decode('utf-8')
 
@@ -59,8 +63,9 @@ def channels(channel_name=None, date=None, channel_id=None):
 def movies(channel_name=None, date=None, channel_id=None, movie_title='',
            start_time=None, end_time=None):
     """
-    List movies
+    List and find movies
     """
+
     if channel_name:
         channel_name = channel_name.decode('utf-8')
     if movie_title:
