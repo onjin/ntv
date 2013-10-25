@@ -70,21 +70,24 @@ def filtered(data, **kwargs):
     result = data
 
     if channel_name:
-        result = {}
-        for index, channel in data.items():
+        filtered_result = {}
+        for index, channel in result.items():
             if channel_name.lower() in channel['name'].lower():
-                result.update({index: channel})
+                filtered_result.update({index: channel})
+        result = filtered_result
 
     if movie_title:
-        result = {}
-        for index, channel in data.items():
+        filtered_result = {}
+        for index, channel in result.items():
             for movie in channel['movies']:
                 if movie_title.lower() in movie['title'].lower():
-                    if not index in result.keys():
-                        result[index] = {
+                    if not index in filtered_result.keys():
+                        filtered_result[index] = {
                             'id': index,
                             'name': channel['name'],
                             'movies': []
                         }
-                    result[index]['movies'].append(movie)
+                    filtered_result[index]['movies'].append(movie)
+        result = filtered_result
+
     return result
