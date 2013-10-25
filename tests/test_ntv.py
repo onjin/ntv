@@ -19,7 +19,7 @@ TEST_DATA = {
         'name': 'First channel',
         'movies': [
             {
-                'title': '1st movie',
+                'title': '1st movie AA',
                 'start_time': datetime.strptime(
                     '2013-10-12 00:00:00', '%Y-%m-%d %H:%M:%S'
                 ),
@@ -29,7 +29,7 @@ TEST_DATA = {
                 'inf': False
             },
             {
-                'title': '2nd movie',
+                'title': '2nd movie AA',
                 'start_time': datetime.strptime(
                     '2013-10-12 01:00:00', '%Y-%m-%d %H:%M:%S'
                 ),
@@ -39,7 +39,7 @@ TEST_DATA = {
                 'inf': False
             },
             {
-                'title': '3rd movie',
+                'title': '3rd movie AA',
                 'start_time': datetime.strptime(
                     '2013-10-12 02:00:00', '%Y-%m-%d %H:%M:%S'
                 ),
@@ -55,7 +55,7 @@ TEST_DATA = {
         'name': 'Second channel',
         'movies': [
             {
-                'title': '1st movie',
+                'title': '1st movie BB',
                 'start_time': datetime.strptime(
                     '2013-10-12 00:00:00', '%Y-%m-%d %H:%M:%S'
                 ),
@@ -65,7 +65,7 @@ TEST_DATA = {
                 'inf': False
             },
             {
-                'title': '2nd movie',
+                'title': '2nd movie BB',
                 'start_time': datetime.strptime(
                     '2013-10-12 01:00:00', '%Y-%m-%d %H:%M:%S'
                 ),
@@ -75,7 +75,7 @@ TEST_DATA = {
                 'inf': False
             },
             {
-                'title': '3rd movie',
+                'title': '3rd movie BB',
                 'start_time': datetime.strptime(
                     '2013-10-12 02:00:00', '%Y-%m-%d %H:%M:%S'
                 ),
@@ -87,6 +87,7 @@ TEST_DATA = {
         ]
     },
 }
+
 
 class TestFiltered(unittest.TestCase):
 
@@ -129,8 +130,14 @@ class TestFiltered(unittest.TestCase):
         self.assertEquals(len(result), 2)
         self.assertEquals(len(result[1313]['movies']), 1)
         self.assertEquals(len(result[1414]['movies']), 1)
-        self.assertEquals(result[1313]['movies'][0]['title'], '1st movie')
-        self.assertEquals(result[1414]['movies'][0]['title'], '1st movie')
+        self.assertEquals(result[1313]['movies'][0]['title'], '1st movie AA')
+        self.assertEquals(result[1414]['movies'][0]['title'], '1st movie BB')
+
+    def test_channel_and_title(self):
+        result = filtered(TEST_DATA, channel_name='Second channel', movie_title='1st')
+        self.assertEquals(len(result), 1)
+        self.assertEquals(len(result[1414]['movies']), 1)
+        self.assertEquals(result[1414]['movies'][0]['title'], '1st movie BB')
 
     def tearDown(self):
         pass
