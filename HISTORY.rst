@@ -3,6 +3,11 @@
 History
 -------
 
+0.3.1 (2013-10-25)
+++++++++++++++++++
+
+* Fixed filtering using channel and movie together
+
 0.3.0 (2013-10-11)
 ++++++++++++++++++
 
