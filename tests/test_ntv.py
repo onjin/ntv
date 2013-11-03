@@ -134,10 +134,53 @@ class TestFiltered(unittest.TestCase):
         self.assertEquals(result[1414]['movies'][0]['title'], '1st movie BB')
 
     def test_channel_and_title(self):
-        result = filtered(TEST_DATA, channel_name='Second channel', movie_title='1st')
+        result = filtered(TEST_DATA, channel_name='Second channel',
+                          movie_title='1st')
         self.assertEquals(len(result), 1)
         self.assertEquals(len(result[1414]['movies']), 1)
         self.assertEquals(result[1414]['movies'][0]['title'], '1st movie BB')
+
+    def test_start_time(self):
+        result = filtered(TEST_DATA, start_time=datetime.strptime(
+            '2013-10-12 00:00:00', '%Y-%m-%d %H:%M:%S'
+        ))
+        self.assertEquals(sum([len(c['movies']) for c in result.values()]), 2)
+
+        result = filtered(TEST_DATA, start_time=datetime.strptime(
+            '2013-10-12 01:00:00', '%Y-%m-%d %H:%M:%S'
+        ))
+        self.assertEquals(sum([len(c['movies']) for c in result.values()]), 4)
+
+        result = filtered(TEST_DATA, start_time=datetime.strptime(
+            '2013-10-12 02:00:00', '%Y-%m-%d %H:%M:%S'
+        ))
+        self.assertEquals(sum([len(c['movies']) for c in result.values()]), 6)
+
+        result = filtered(TEST_DATA, start_time=datetime.strptime(
+            '2013-10-12 03:00:00', '%Y-%m-%d %H:%M:%S'
+        ))
+        self.assertEquals(sum([len(c['movies']) for c in result.values()]), 6)
+
+    def test_end_time(self):
+        result = filtered(TEST_DATA, end_time=datetime.strptime(
+            '2013-10-12 00:00:00', '%Y-%m-%d %H:%M:%S'
+        ))
+        self.assertEquals(sum([len(c['movies']) for c in result.values()]), 6)
+
+        result = filtered(TEST_DATA, end_time=datetime.strptime(
+            '2013-10-12 01:00:00', '%Y-%m-%d %H:%M:%S'
+        ))
+        self.assertEquals(sum([len(c['movies']) for c in result.values()]), 6)
+
+        result = filtered(TEST_DATA, end_time=datetime.strptime(
+            '2013-10-12 02:00:00', '%Y-%m-%d %H:%M:%S'
+        ))
+        self.assertEquals(sum([len(c['movies']) for c in result.values()]), 4)
+
+        result = filtered(TEST_DATA, end_time=datetime.strptime(
+            '2013-10-12 03:00:00', '%Y-%m-%d %H:%M:%S'
+        ))
+        self.assertEquals(sum([len(c['movies']) for c in result.values()]), 2)
 
     def tearDown(self):
         pass

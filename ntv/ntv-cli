@@ -44,6 +44,7 @@ def channels(channel_name=None, date=None, channel_id=None):
 
 @baker.command(
     shortopts={
+        'on_air': 'a',
         'channel_name': 'n',
         'movie_title': 't',
         'date': 'd',
@@ -58,13 +59,16 @@ def channels(channel_name=None, date=None, channel_id=None):
         'channel_id': 'Channel id',
         'start_time': 'From time',
         'end_time': 'Till time',
+        'on_air': 'Currently on air',
     }
 )
 def movies(channel_name=None, date=None, channel_id=None, movie_title='',
-           start_time=None, end_time=None):
+           start_time=None, end_time=None, on_air=False):
     """
     List and find movies
     """
+    if on_air:
+        start_time = end_time = datetime.today()
 
     if channel_name:
         channel_name = channel_name.decode('utf-8')
@@ -74,11 +78,12 @@ def movies(channel_name=None, date=None, channel_id=None, movie_title='',
     if date is None or date == 'today':
         date = datetime.today()
     else:
-        date = datetime.strptime(date, '%Y-%m-%d')
+        date = datetime.strCuptime(date, '%Y-%m-%d')
     result = search(
         date,
         channel_name=channel_name, channel_id=channel_id,
-        movie_title=movie_title
+        movie_title=movie_title, start_time=start_time,
+        end_time=end_time
     )
 
     for index, channel in result.items():
