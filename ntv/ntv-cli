@@ -78,7 +78,7 @@ def movies(channel_name=None, date=None, channel_id=None, movie_title='',
     if date is None or date == 'today':
         date = datetime.today()
     else:
-        date = datetime.strCuptime(date, '%Y-%m-%d')
+        date = datetime.strptime(date, '%Y-%m-%d')
     result = search(
         date,
         channel_name=channel_name, channel_id=channel_id,
