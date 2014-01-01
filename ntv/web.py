@@ -19,7 +19,8 @@ def fetcher(date=datetime.today(), url_pattern=URL_PATTERN):
     """
     api_url = url_pattern % date.strftime('%Y-%m-%d')
 
-    raw_result = requests.get(api_url).json()
+    headers = {'Referer': 'http://n.pl/program-tv'}
+    raw_result = requests.get(api_url, headers=headers).json()
     return raw_result
 
 
@@ -59,6 +60,8 @@ def filtered(data, **kwargs):
     channel_id = kwargs.get('channel_id', None)
     channel_name = kwargs.get('channel_name', None)
     movie_title = kwargs.get('movie_title', None)
+    start_time = kwargs.get('start_time', None)
+    end_time = kwargs.get('end_time', None)
 
     if channel_id:
         if int(channel_id) in data.keys():
@@ -81,6 +84,34 @@ def filtered(data, **kwargs):
         for index, channel in result.items():
             for movie in channel['movies']:
                 if movie_title.lower() in movie['title'].lower():
+                    if not index in filtered_result.keys():
+                        filtered_result[index] = {
+                            'id': index,
+                            'name': channel['name'],
+                            'movies': []
+                        }
+                    filtered_result[index]['movies'].append(movie)
+        result = filtered_result
+
+    if start_time:
+        filtered_result = {}
+        for index, channel in result.items():
+            for movie in channel['movies']:
+                if start_time >= movie['start_time']:
+                    if not index in filtered_result.keys():
+                        filtered_result[index] = {
+                            'id': index,
+                            'name': channel['name'],
+                            'movies': []
+                        }
+                    filtered_result[index]['movies'].append(movie)
+        result = filtered_result
+
+    if end_time:
+        filtered_result = {}
+        for index, channel in result.items():
+            for movie in channel['movies']:
+                if end_time <= movie['end_time']:
                     if not index in filtered_result.keys():
                         filtered_result[index] = {
                             'id': index,
