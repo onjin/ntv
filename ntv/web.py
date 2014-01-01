@@ -19,7 +19,8 @@ def fetcher(date=datetime.today(), url_pattern=URL_PATTERN):
     """
     api_url = url_pattern % date.strftime('%Y-%m-%d')
 
-    raw_result = requests.get(api_url).json()
+    headers = {'Referer': 'http://n.pl/program-tv'}
+    raw_result = requests.get(api_url, headers=headers).json()
     return raw_result
 
 
