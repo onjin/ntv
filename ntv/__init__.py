@@ -6,3 +6,5 @@ __email__ = 'onjinx@gmail.com'
 __version__ = '0.3.3'
 
 from .shortcuts import search
+
+__all__ = [search, ]

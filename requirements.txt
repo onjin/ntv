@@ -1,4 +1,4 @@
 requests
 simplejson
-clint
+clint>=0.3.3
 baker
