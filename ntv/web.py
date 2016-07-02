@@ -2,6 +2,10 @@
 from datetime import datetime
 
 import requests
+import requests_cache
+
+
+requests_cache.install_cache(expire_after=3600)
 
 URL_PATTERN = 'http://n.pl/~/epgjson/%s.ejson'
 
