@@ -27,6 +27,8 @@ def channels(channel_name=None, date=None, channel_id=None):
 
     if channel_name:
         channel_name = channel_name.decode('utf-8')
+    if channel_id:
+        channel_id = int(channel_id)
 
     if date is None or date == 'today':
         date = datetime.today()
@@ -35,7 +37,7 @@ def channels(channel_name=None, date=None, channel_id=None):
 
     result = search(
         datetime.today(),
-        channel_name=channel_name, channel_id=int(channel_id)
+        channel_name=channel_name, channel_id=channel_id
     )
 
     for index, channel in result.items():
@@ -74,6 +76,8 @@ def movies(channel_name=None, date=None, channel_id=None, movie_title='',
         channel_name = channel_name.decode('utf-8')
     if movie_title:
         movie_title = movie_title.decode('utf-8')
+    if channel_id:
+        channel_id = int(channel_id)
 
     if date is None or date == 'today':
         date = datetime.today()
@@ -81,7 +85,7 @@ def movies(channel_name=None, date=None, channel_id=None, movie_title='',
         date = datetime.strptime(date, '%Y-%m-%d')
     result = search(
         date,
-        channel_name=channel_name, channel_id=int(channel_id),
+        channel_name=channel_name, channel_id=channel_id,
         movie_title=movie_title, start_time=start_time,
         end_time=end_time
     )
