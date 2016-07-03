@@ -67,14 +67,14 @@ def filtered(data, **kwargs):
     start_time = kwargs.get('start_time', None)
     end_time = kwargs.get('end_time', None)
 
-    if channel_id:
-        if int(channel_id) in data.keys():
-            return {channel_id: data.get(channel_id)}
-        else:
-            return {}
-
     # default
     result = data
+
+    if channel_id:
+        if int(channel_id) in data.keys():
+            result = {channel_id: data.get(channel_id)}
+        else:
+            return {}
 
     if channel_name:
         filtered_result = {}
@@ -88,7 +88,7 @@ def filtered(data, **kwargs):
         for index, channel in result.items():
             for movie in channel['movies']:
                 if movie_title.lower() in movie['title'].lower():
-                    if not index in filtered_result.keys():
+                    if index not in filtered_result.keys():
                         filtered_result[index] = {
                             'id': index,
                             'name': channel['name'],
@@ -102,7 +102,7 @@ def filtered(data, **kwargs):
         for index, channel in result.items():
             for movie in channel['movies']:
                 if start_time >= movie['start_time']:
-                    if not index in filtered_result.keys():
+                    if index not in filtered_result.keys():
                         filtered_result[index] = {
                             'id': index,
                             'name': channel['name'],
@@ -116,7 +116,7 @@ def filtered(data, **kwargs):
         for index, channel in result.items():
             for movie in channel['movies']:
                 if end_time <= movie['end_time']:
-                    if not index in filtered_result.keys():
+                    if index not in filtered_result.keys():
                         filtered_result[index] = {
                             'id': index,
                             'name': channel['name'],
